@@ -35,10 +35,9 @@ class UtilServices {
       timeInSecForIosWeb: 3,
       backgroundColor: isError
           ? Color.fromARGB(255, 248, 2, 2)
-          : Color.fromARGB(255, 255, 254, 254),
-      textColor: isError
-          ? Color.fromARGB(255, 255, 255, 255)
-          : Color.fromARGB(255, 7, 7, 7),
+          : Color.fromARGB(255, 132, 201, 47),
+      textColor: Color.fromARGB(255, 255, 255, 255),
+
       fontSize: 14,
     );
   }
