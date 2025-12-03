@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
+import 'package:greengrocer/src/core/config/app_data.dart';
 import 'package:greengrocer/src/core/config/app_pages.dart';
+import 'package:greengrocer/src/core/constants/endpoint.dart';
+import 'package:greengrocer/src/core/constants/storege_key.dart';
 import 'package:greengrocer/src/models/user_model.dart';
 import 'package:greengrocer/src/screens/auth/repository/auth_repository.dart';
 import 'package:greengrocer/src/screens/auth/result/auth_result.dart';
@@ -11,6 +14,38 @@ class AuthController extends GetxController {
   UserModel user = UserModel();
   final utilServices = UtilServices();
 
+  @override
+  void onInit() {
+    super.onInit();
+    validateToken();
+  }
+
+  Future<void> validateToken() async {
+    String? token = await utilServices.loadLocalData(key: StoregeKey.token);
+    if (token == null) return Get.offAllNamed(Endpoint.signin);
+    AuthResult result = await _authRepository.validateToken(token);
+    result.when(
+      success: (user) {
+        this.user = user;
+        saveTokenAndProceedToBase();
+      },
+      error: (message) {
+        signUp();
+      },
+    );
+  }
+
+  Future<void> signUp() async {
+    await utilServices.removeLocalData(key: StoregeKey.token);
+    user = UserModel();
+    return Get.offAllNamed(Endpoint.signin);
+  }
+
+  void saveTokenAndProceedToBase() {
+    utilServices.saveLocalData(key: StoregeKey.token, data: user.token!);
+    Get.offAllNamed(Routes.base);
+  }
+
   Future<void> signIn({required String email, required String password}) async {
     isLoading.value = true;
 
@@ -20,8 +55,8 @@ class AuthController extends GetxController {
     );
     result.when(
       success: (user) {
-        print(user);
-        Get.offAllNamed(Routes.base);
+        this.user = user;
+        validateToken();
         utilServices.showToast(message: 'Seja bem vindo! ${user.name}');
         isLoading.value = false;
       },

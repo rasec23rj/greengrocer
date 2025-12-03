@@ -1,4 +1,5 @@
 import 'package:flutter/painting.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -40,5 +41,22 @@ class UtilServices {
 
       fontSize: 14,
     );
+  }
+
+  final storage = const FlutterSecureStorage();
+
+  Future<void> saveLocalData({
+    required String key,
+    required String data,
+  }) async {
+    await storage.write(key: key, value: data);
+  }
+
+  Future<String?> loadLocalData({required String key}) async {
+    return await storage.read(key: key);
+  }
+
+  Future<void> removeLocalData({required String key}) async {
+    await storage.delete(key: key);
   }
 }
