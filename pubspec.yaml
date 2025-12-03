@@ -46,9 +46,15 @@ dependencies:
 
 
 
+dependency_overrides:
+  analyzer: ^8.0.0
+  build_runner: ^2.3.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  freezed: ^3.2.3
+  freezed_annotation: ^3.1.0
   json_serializable: ^6.11.3
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
