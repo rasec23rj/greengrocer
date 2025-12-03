@@ -6,5 +6,5 @@ part 'auth_result.freezed.dart';
 @freezed
 abstract class AuthResult with _$AuthResult {
   factory AuthResult.success(UserModel user) = Success;
-  factory AuthResult.error(UserModel user) = Error;
+  factory AuthResult.error(String message) = Error;
 }

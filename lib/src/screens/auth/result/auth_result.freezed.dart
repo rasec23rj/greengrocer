@@ -14,61 +14,30 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthResult {
 
- UserModel get user;
-/// Create a copy of AuthResult
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-$AuthResultCopyWith<AuthResult> get copyWith => _$AuthResultCopyWithImpl<AuthResult>(this as AuthResult, _$identity);
+
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthResult&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthResult);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,user);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'AuthResult(user: $user)';
+  return 'AuthResult()';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $AuthResultCopyWith<$Res>  {
-  factory $AuthResultCopyWith(AuthResult value, $Res Function(AuthResult) _then) = _$AuthResultCopyWithImpl;
-@useResult
-$Res call({
- UserModel user
-});
-
-
-
-
-}
-/// @nodoc
-class _$AuthResultCopyWithImpl<$Res>
-    implements $AuthResultCopyWith<$Res> {
-  _$AuthResultCopyWithImpl(this._self, this._then);
-
-  final AuthResult _self;
-  final $Res Function(AuthResult) _then;
-
-/// Create a copy of AuthResult
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? user = null,}) {
-  return _then(_self.copyWith(
-user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as UserModel,
-  ));
-}
-
+class $AuthResultCopyWith<$Res>  {
+$AuthResultCopyWith(AuthResult _, $Res Function(AuthResult) __);
 }
 
 
@@ -153,11 +122,11 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( UserModel user)?  success,TResult Function( UserModel user)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( UserModel user)?  success,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case Success() when success != null:
 return success(_that.user);case Error() when error != null:
-return error(_that.user);case _:
+return error(_that.message);case _:
   return orElse();
 
 }
@@ -175,11 +144,11 @@ return error(_that.user);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( UserModel user)  success,required TResult Function( UserModel user)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( UserModel user)  success,required TResult Function( String message)  error,}) {final _that = this;
 switch (_that) {
 case Success():
 return success(_that.user);case Error():
-return error(_that.user);case _:
+return error(_that.message);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,11 +165,11 @@ return error(_that.user);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( UserModel user)?  success,TResult? Function( UserModel user)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( UserModel user)?  success,TResult? Function( String message)?  error,}) {final _that = this;
 switch (_that) {
 case Success() when success != null:
 return success(_that.user);case Error() when error != null:
-return error(_that.user);case _:
+return error(_that.message);case _:
   return null;
 
 }
@@ -215,11 +184,11 @@ class Success implements AuthResult {
    Success(this.user);
   
 
-@override final  UserModel user;
+ final  UserModel user;
 
 /// Create a copy of AuthResult
 /// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
+@JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $SuccessCopyWith<Success> get copyWith => _$SuccessCopyWithImpl<Success>(this, _$identity);
 
@@ -245,7 +214,7 @@ String toString() {
 /// @nodoc
 abstract mixin class $SuccessCopyWith<$Res> implements $AuthResultCopyWith<$Res> {
   factory $SuccessCopyWith(Success value, $Res Function(Success) _then) = _$SuccessCopyWithImpl;
-@override @useResult
+@useResult
 $Res call({
  UserModel user
 });
@@ -264,7 +233,7 @@ class _$SuccessCopyWithImpl<$Res>
 
 /// Create a copy of AuthResult
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
   return _then(Success(
 null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as UserModel,
@@ -278,14 +247,14 @@ as UserModel,
 
 
 class Error implements AuthResult {
-   Error(this.user);
+   Error(this.message);
   
 
-@override final  UserModel user;
+ final  String message;
 
 /// Create a copy of AuthResult
 /// with the given fields replaced by the non-null parameter values.
-@override @JsonKey(includeFromJson: false, includeToJson: false)
+@JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $ErrorCopyWith<Error> get copyWith => _$ErrorCopyWithImpl<Error>(this, _$identity);
 
@@ -293,16 +262,16 @@ $ErrorCopyWith<Error> get copyWith => _$ErrorCopyWithImpl<Error>(this, _$identit
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Error&&(identical(other.user, user) || other.user == user));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Error&&(identical(other.message, message) || other.message == message));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,user);
+int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'AuthResult.error(user: $user)';
+  return 'AuthResult.error(message: $message)';
 }
 
 
@@ -311,9 +280,9 @@ String toString() {
 /// @nodoc
 abstract mixin class $ErrorCopyWith<$Res> implements $AuthResultCopyWith<$Res> {
   factory $ErrorCopyWith(Error value, $Res Function(Error) _then) = _$ErrorCopyWithImpl;
-@override @useResult
+@useResult
 $Res call({
- UserModel user
+ String message
 });
 
 
@@ -330,10 +299,10 @@ class _$ErrorCopyWithImpl<$Res>
 
 /// Create a copy of AuthResult
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? user = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(Error(
-null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
-as UserModel,
+null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
