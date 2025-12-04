@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:greengrocer/src/core/config/app_data.dart';
 import 'package:greengrocer/src/core/config/app_pages.dart';
 import 'package:greengrocer/src/core/constants/endpoint.dart';
 import 'package:greengrocer/src/core/constants/storege_key.dart';
@@ -30,12 +29,12 @@ class AuthController extends GetxController {
         saveTokenAndProceedToBase();
       },
       error: (message) {
-        signUp();
+        signOut();
       },
     );
   }
 
-  Future<void> signUp() async {
+  Future<void> signOut() async {
     await utilServices.removeLocalData(key: StoregeKey.token);
     user = UserModel();
     return Get.offAllNamed(Routes.signin);
@@ -53,6 +52,25 @@ class AuthController extends GetxController {
       email: email,
       password: password,
     );
+    result.when(
+      success: (user) {
+        this.user = user;
+        validateToken();
+        utilServices.showToast(message: 'Seja bem vindo! ${user.name}');
+        isLoading.value = false;
+      },
+      error: (message) {
+        utilServices.showToast(message: message, isError: true);
+        isLoading.value = false;
+      },
+    );
+  }
+
+  Future<void> signUp(UserModel user) async {
+    isLoading.value = true;
+
+    AuthResult result = await _authRepository.signup(user);
+
     result.when(
       success: (user) {
         this.user = user;

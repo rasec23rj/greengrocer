@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/components/custom_text_field.dart';
+import 'package:greengrocer/src/core/config/app_data.dart';
 import 'package:greengrocer/src/core/theme/colors_theme.dart';
+import 'package:greengrocer/src/models/user_model.dart';
+import 'package:greengrocer/src/screens/auth/controller/auth_controller.dart';
 import 'package:greengrocer/src/services/util_services.dart';
 import 'package:greengrocer/src/services/validators.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SignUpScreens extends StatefulWidget {
   const SignUpScreens({super.key});
@@ -19,6 +22,7 @@ class _SignUpScreensState extends State<SignUpScreens> {
   final cpfEC = TextEditingController();
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
+  final authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -125,20 +129,35 @@ class _SignUpScreensState extends State<SignUpScreens> {
                         const SizedBox(height: 10),
                         SizedBox(
                           height: 50,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.lightGreen,
-                            ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                print('error');
-                              }
-                            },
-                            child: Text(
-                              'Salvar',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
+                          child: Obx(() {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.lightGreen,
+                              ),
+                              onPressed: authController.isLoading.value
+                                  ? null
+                                  : () {
+                                      if (_formKey.currentState!.validate()) {
+                                        _formKey.currentState!.save();
+                                        UserModel user = UserModel(
+                                          name: nameEC.text,
+                                          email: emailEC.text,
+                                          password: passwordEC.text,
+                                          phone: phoneEC.text,
+                                          cpf: cpfEC.text,
+                                        );
+
+                                        authController.signUp(user);
+                                      }
+                                    },
+                              child: authController.isLoading.value
+                                  ? CircularProgressIndicator.adaptive()
+                                  : Text(
+                                      'Salvar',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                            );
+                          }),
                         ),
                       ],
                     ),

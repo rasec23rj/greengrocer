@@ -8,7 +8,7 @@ String? emailValidator(String? email) {
   return null;
 }
 
-String? passwordValidator(password) {
+String? passwordValidator(String? password) {
   if (password == null || password.isEmpty) {
     return 'Digite uma senha';
   }
@@ -18,20 +18,18 @@ String? passwordValidator(password) {
   return null;
 }
 
-String? phoneValidator(phone) {
+String? phoneValidator(String? phone) {
   if (phone == null || phone.isEmpty) {
     return 'Digite uma telefone';
   }
-  if (!phone.isPhoneNumber) return 'Digite um telefone inválido';
 
   return null;
 }
 
-String? cpfValidator(cpf) {
+String? cpfValidator(String? cpf) {
   if (cpf == null || cpf.isEmpty) {
     return 'Digite uma cpf';
   }
-  if (!cpf.isCpf) return 'Digite um cpf inválido';
 
   return null;
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengrocer/src/components/custom_text_field.dart';
 import 'package:greengrocer/src/core/constants/endpoint.dart';
 import 'package:greengrocer/src/core/theme/colors_theme.dart';
@@ -18,7 +19,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController cpfController = TextEditingController();
   TextEditingController celularController = TextEditingController();
-  final authcontroller = AuthController();
+  final authcontroller = Get.find<AuthController>();
   @override
   void initState() {
     // TODO: implement initState
@@ -36,7 +37,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              authcontroller.signUp();
+              authcontroller.signOut();
             },
             icon: Icon(Icons.logout),
           ),
