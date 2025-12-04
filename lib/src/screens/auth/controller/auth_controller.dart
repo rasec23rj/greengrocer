@@ -38,7 +38,7 @@ class AuthController extends GetxController {
   Future<void> signUp() async {
     await utilServices.removeLocalData(key: StoregeKey.token);
     user = UserModel();
-    return Get.offAllNamed(Endpoint.signin);
+    return Get.offAllNamed(Routes.signin);
   }
 
   void saveTokenAndProceedToBase() {
