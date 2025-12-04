@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:greengrocer/src/components/custom_text_field.dart';
+import 'package:greengrocer/src/core/constants/endpoint.dart';
 import 'package:greengrocer/src/core/theme/colors_theme.dart';
 import 'package:greengrocer/src/core/config/app_data.dart' as app_data;
+import 'package:greengrocer/src/screens/auth/controller/auth_controller.dart';
 import 'package:greengrocer/src/services/util_services.dart';
 
 class PerfilScreen extends StatefulWidget {
@@ -16,7 +18,7 @@ class _PerfilScreenState extends State<PerfilScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController cpfController = TextEditingController();
   TextEditingController celularController = TextEditingController();
-
+  final authcontroller = AuthController();
   @override
   void initState() {
     // TODO: implement initState
@@ -31,7 +33,14 @@ class _PerfilScreenState extends State<PerfilScreen> {
         title: const Text('Meu perfil'),
         centerTitle: true,
         backgroundColor: ColorsTheme.customSwatchColor,
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.logout))],
+        actions: [
+          IconButton(
+            onPressed: () {
+              authcontroller.signUp();
+            },
+            icon: Icon(Icons.logout),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
