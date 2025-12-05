@@ -10,6 +10,8 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final bool readOnly;
   String? Function(String?)? validator;
+  final GlobalKey<FormFieldState>? formFieldkey;
+
   CustomTextField({
     super.key,
     required this.label,
@@ -20,6 +22,7 @@ class CustomTextField extends StatefulWidget {
     this.controller,
     this.readOnly = false,
     this.validator,
+    this.formFieldkey,
   });
 
   @override
@@ -40,6 +43,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Column(
       children: [
         TextFormField(
+          key: widget.formFieldkey,
           readOnly: widget.readOnly,
           controller: widget.controller,
           decoration: InputDecoration(
